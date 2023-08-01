@@ -11,6 +11,7 @@ import WithdrawSection from './components/WithdrawSection';
 import { ApolloProvider } from '@apollo/client';
 import { ethers } from 'ethers';
 import { client } from './apollo';
+import UserListedNFTs from './components/UserListedNFTs';
 
 function App() {
   const [Contract,SetContract] = useState(null);
@@ -63,16 +64,17 @@ function App() {
       <Header onConnectDisconnect={handleConnectDisconnect} isConnected={isConnected} address={address} />
       <WithdrawSection isConnected={isConnected} Contract={Contract} address={address} />
       <Routes>
-        <Route path="/" element={<MainSection />} />
+        <Route path="/" element={<MainSection  />} />
         <Route path="/Sell-nft" element={<SellNFTPage isConnected={isConnected} Contract={Contract} Signer={Signer}/>} />
+        <Route path="/UserListedNFTs" element={<UserListedNFTs Contract={Contract} address={address} />} />
       </Routes>
       {isConnected ? (
-        <RecentlyListedSection Contract={Contract} />
+        <RecentlyListedSection Contract={Contract} address={address} />
       ) : (
-        <section className="bg-white py-6">
+        <section className="bg-gray-600 text-white py-6">
           <div className="container mx-auto flex flex-col items-center">
             <h2 className="text-3xl font-bold mb-4">Recently Listed NFT</h2>
-            <p className="text-lg text-gray-600">Connect your wallet to view recently listed NFTs</p>
+            <p className="text-lg">Connect your wallet to view recently listed NFTs</p>
           </div>
         </section>
       )}

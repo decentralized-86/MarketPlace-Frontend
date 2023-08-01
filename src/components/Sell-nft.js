@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import getContractABI from './ContractAbi';
-import App from '../App';
 
 export default function SellNFTPage({ isConnected, Contract , Signer }) {
   const [nftAddress, setNFTAddress] = useState('');
@@ -27,16 +26,20 @@ export default function SellNFTPage({ isConnected, Contract , Signer }) {
     console.log(" fetching ABI ");
     const ABI =  await getContractABI(nftAddress,POLYGONSCAN_API_KEY);
     console.log(JSON.stringify(ABI));
+    console.log("nftAddress" + nftAddress);
     const nftContract = new ethers.Contract(nftAddress,ABI,Signer);
-    const Approval = await  nftContract.approve("0xA0Db67C5A14a2805B4157d8799449EA0B271188f" ,parseInt(tokenId));
-    await Approval.wait(2);
+    console.log("before conversion price"+price);
+    console.log("nft Address"+ nftContract.address);
+    const Approval = await  nftContract.approve("0xA0Db67C5A14a2805B4157d8799449EA0B271188f" ,parseInt(tokenId),{gasLimit: 50000});
+    await Approval.wait(1);
+    console.log("got the Approval")
      const priceinWie = ethers.utils.parseEther(price);
     const listing  = await Contract.ListNfts(nftAddress, parseInt(tokenId), priceinWie);
     await listing.wait(2);  
     console.log(listing);
     console.log("Listing Updated");
     
-    console.log('NFT listed:', { nftAddress, tokenId, price });  
+    console.log('NFT listed:', { nftAddress, tokenId,priceinWie  });  
     alert("Successfully Listed... :)")
 
     setNFTAddress('');

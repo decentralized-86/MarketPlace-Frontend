@@ -25,7 +25,7 @@ export default function RecentTransactionsSection() {
     <section className="bg-gray-100 py-8">
       <div className="container mx-auto px-4 sm:px-8">
         <h2 className="text-3xl font-bold mb-4 text-center">Recent Transactions</h2>
-        <div className="py-8">
+        <div className="py-1">
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
               <table className="min-w-full leading-normal">

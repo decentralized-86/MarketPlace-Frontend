@@ -27,23 +27,15 @@ export default function WithdrawSection({ isConnected, Contract, address }) {
     console.log("Amount withdrawn");
   };
 
-  if (!isConnected) {
-    return (
-      <section className="bg-black py-4">
-        <div className="container mx-auto text-center">
-          <p className="text-white font-bold">Connect Wallet to Withdraw Earnings</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="bg-black py-4">
+    <section className="bg-gray-600 text-white shadow-sm py-2">
       <div className="container mx-auto text-center">
-        {/* <a href="#withdraw" className="text-white font-bold text-lg" onClick={handleWithdraw}> */}
-        <a href="#withdraw" className="text-white font-bold text-lg" >
-          {/* Withdraw Earnings = {balance}  ETH */}
-          Withdraw Earnings = 0  ETH
+        <a
+          href="#withdraw"
+          className="px-2 py-1 text-white rounded hover:bg-gray-500 hover:text-black"
+          onClick={isConnected ? handleWithdraw : undefined}
+        >
+          Withdraw Earnings: {isConnected ? balance : 'Connect Wallet'} ETH
         </a>
       </div>
     </section>
